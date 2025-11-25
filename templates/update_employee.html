@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Employee — ID {{ emp[0] }}</h2>
+
+<form method="POST" class="form">
+    <label>Name</label>
+    <input name="name" required value="{{ emp[1] }}">
+
+    <label>Age</label>
+    <input name="age" type="number" value="{{ emp[2] or '' }}">
+
+    <label>Department</label>
+    <select name="department">
+        {% for d in departments %}
+            <option value="{{ d }}" {% if emp[3]==d %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Designation</label>
+    <input name="designation" value="{{ emp[4] }}">
+
+    <label>Salary</label>
+    <input name="salary" type="number" step="0.01" value="{{ emp[5] or '' }}">
+
+    <label>Email</label>
+    <input name="email" value="{{ emp[6] or '' }}">
+
+    <label>Phone</label>
+    <input name="phone" value="{{ emp[7] or '' }}">
+
+    <label>Status</label>
+    <select name="status">
+        <option value="Active" {% if emp[8]=='Active' %}selected{% endif %}>Active</option>
+        <option value="Inactive" {% if emp[8]=='Inactive' %}selected{% endif %}>Inactive</option>
+    </select>
+
+    <div class="form-row">
+        <button type="submit" class="btn">Save Changes</button>
+        <a class="btn alt" href="{{ url_for('manage') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

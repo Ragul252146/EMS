@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+<h2>Reports — Attendance %</h2>
+
+<form method="POST" class="form-inline">
+  <label>Year</label>
+  <input name="year" type="number" required />
+  <label>Month</label>
+  <input name="month" type="number" min="1" max="12" required />
+  <button class="btn" type="submit">Show</button>
+</form>
+
+{% if data %}
+<h3>Results</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Emp ID</th>
+      <th>Name</th>
+      <th>Present</th>
+      <th>Total</th>
+      <th>%</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in data %}
+    <tr>
+      <td>{{ d[0] }}</td>
+      <td>{{ d[1] }}</td>
+      <td>{{ d[2] }}</td>
+      <td>{{ d[3] }}</td>
+      <td>{{ d[4] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} {% endblock %}

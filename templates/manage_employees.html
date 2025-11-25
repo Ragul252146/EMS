@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+<h2>Manage Employees</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Department</th>
+      <th>Designation</th>
+      <th>Salary</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in employees %}
+    <tr>
+      <td>{{ e[0] }}</td>
+      <td>{{ e[1] }}</td>
+      <td>{{ e[2] or "" }}</td>
+      <td>{{ e[3] or "" }}</td>
+      <td>{{ e[4] or "" }}</td>
+      <td>{{ e[5] or "" }}</td>
+      <td>{{ e[6] or "" }}</td>
+      <td>{{ e[7] or "" }}</td>
+      <td>{{ e[8] or "" }}</td>
+      <td class="actions">
+        <a class="btn small" href="{{ url_for('update', id=e[0]) }}">Edit</a>
+        <a
+          class="btn small danger"
+          href="{{ url_for('delete', id=e[0]) }}"
+          onclick="return confirm('Delete this employee?')"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="10">No employees found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p><a class="btn" href="{{ url_for('add') }}">Add New Employee</a></p>
+{% endblock %}

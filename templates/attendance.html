@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block content %}
+<h2>Attendance</h2>
+
+<!-- Mark Attendance Form -->
+<form
+  method="POST"
+  action="{{ url_for('mark_attendance') }}"
+  class="form-inline"
+>
+  <label>Employee</label>
+  <select name="emp_id" required>
+    <option value="All">All Employees</option>
+    {% for e in employees %}
+    <option value="{{ e[0] }}">{{ e[1] }} (ID: {{ e[0] }})</option>
+    {% endfor %}
+  </select>
+
+  <label>Date</label>
+  <input name="date" type="date" value="{{ today }}" required />
+
+  <label>Status</label>
+  <select name="status" required>
+    <option value="Present">Present</option>
+    <option value="Absent">Absent</option>
+  </select>
+
+  <button type="submit" class="btn">Mark Attendance</button>
+</form>
+
+<hr />
+
+<!-- Load Attendance Records -->
+<h3>Attendance Records</h3>
+<form method="GET" class="form-inline">
+  <label>Employee ID</label>
+  <input
+    name="emp_id"
+    placeholder="All"
+    value="{{ request.args.get('emp_id','') }}"
+  />
+
+  <label>Year</label>
+  <input name="year" type="number" value="{{ request.args.get('year','') }}" />
+
+  <label>Month</label>
+  <input
+    name="month"
+    type="number"
+    min="1"
+    max="12"
+    value="{{ request.args.get('month','') }}"
+  />
+
+  <button class="btn" type="submit">Load</button>
+</form>
+
+{% if records %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Emp ID</th>
+      <th>Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in records %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% elif records is not none %}
+<p>No attendance records.</p>
+{% endif %} {% endblock %}

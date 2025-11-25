@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block content %}
+<h2>Leave Management</h2>
+
+<section class="card">
+  <h3>Apply Leave</h3>
+  <form method="POST" class="form-inline">
+    <label>Employee ID</label>
+    <input name="emp_id" required />
+
+    <label>Start (YYYY-MM-DD)</label>
+    <input name="start" required placeholder="2024-01-01" />
+
+    <label>End (YYYY-MM-DD)</label>
+    <input name="end" required placeholder="2024-01-03" />
+
+    <label>Reason</label>
+    <input name="reason" />
+
+    <button type="submit" class="btn">Apply</button>
+  </form>
+</section>
+
+<section>
+  <h3>Applications</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>LID</th>
+        <th>EmpID</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in leaves %}
+      <tr>
+        <td>{{ l[0] }}</td>
+        <td>{{ l[1] }}</td>
+        <td>{{ l[2] }}</td>
+        <td>{{ l[3] }}</td>
+        <td>{{ l[4] }}</td>
+        <td>{{ l[5] }}</td>
+        <td>
+          <a class="btn small" href="{{ url_for('approve_leave', id=l[0]) }}"
+            >Approve</a
+          >
+          <a
+            class="btn small danger"
+            href="{{ url_for('reject_leave', id=l[0]) }}"
+            >Reject</a
+          >
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7">No leave applications.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

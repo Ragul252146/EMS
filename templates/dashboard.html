@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<h2>Dashboard</h2>
+
+<div class="cards">
+  <div class="card">
+    <h3>Employees</h3>
+    <p><a href="{{ url_for('manage') }}">Manage employees</a></p>
+  </div>
+  <div class="card">
+    <h3>Attendance</h3>
+    <p><a href="{{ url_for('attendance') }}">View attendance</a></p>
+  </div>
+  <div class="card">
+    <h3>Leaves</h3>
+    <p><a href="{{ url_for('leave') }}">Manage leaves</a></p>
+  </div>
+  <div class="card">
+    <h3>Reports</h3>
+    <p><a href="{{ url_for('reports') }}">View reports</a></p>
+  </div>
+</div>
+
+<p class="hint">Use the top navigation to access full features.</p>
+{% endblock %}
